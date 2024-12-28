@@ -23,13 +23,13 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
         <div className="flex items-center justify-center p-4">
           {sidebarOpen ? (
             <img
-              src="/src/images/LogoBridge.png" // Replace with the actual logo path
+              src="/src/images/LogoBridge.png" 
               alt="Logo"
               className="w-80 h-20 object-contain"
             />
           ) : (
             <img
-              src="/src/images/LogoBridgemini.png" // Replace with a smaller icon/logo version
+              src="/src/images/LogoBridgemini.png" 
               alt="Mini Logo"
               className="w-10 h-10 object-contain"
             />

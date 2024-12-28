@@ -38,10 +38,8 @@ const EditCourseModal: React.FC<EditCourseModalProps> = ({
   
     if (image) {
       if (typeof image === 'string') {
-        // Keep the existing image URL
         updatedCourse.image = image;
       } else {
-        // Add the new file to update
         updatedCourse.image = image;
       }
     }
@@ -108,7 +106,7 @@ const EditCourseModal: React.FC<EditCourseModalProps> = ({
             <button
               type="submit"
               onClick={handleSubmit}
-              className="px-4 py-2 bg-green-500 text-white rounded-md"
+              className="px-4 py-2 bg-primary text-white rounded-md"
             >
               Save Changes
             </button>

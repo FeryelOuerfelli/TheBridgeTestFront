@@ -12,7 +12,7 @@ const AddCourseModal: React.FC<AddCourseModalProps> = ({ isOpen, onCancel, onAdd
   const [price, setPrice] = useState<number>(0);
   const [image, setImage] = useState<File | null>(null);
 
-  if (!isOpen) return null; // Don't render the modal if it's not open
+  if (!isOpen) return null; 
 
   const handleSubmit = () => {
     if (!title || price <= 0) {
@@ -69,7 +69,7 @@ const AddCourseModal: React.FC<AddCourseModalProps> = ({ isOpen, onCancel, onAdd
             <button type="button" onClick={onCancel} className="px-4 py-2 bg-gray-300 text-black rounded-md">
               Cancel
             </button>
-            <button type="submit" className="px-4 py-2 bg-green-500 text-white rounded-md">
+            <button type="submit" className="px-4 py-2 bg-primary text-white rounded-md">
               Add Course
             </button>
           </div>

@@ -23,7 +23,6 @@ const Landing: React.FC = () => {
     const [courses, setCourses] = useState<Course[]>([]);
 
     useEffect(() => {
-      // Fetch courses data from the API (replace with your actual API endpoint)
       fetch('http://localhost:3000/courses')
       .then((response) => response.json())
         .then((data) => setCourses(data))
@@ -94,7 +93,7 @@ const Landing: React.FC = () => {
       </a>
     </div>
     <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
-          {/* Map over courses data to dynamically create cards */}
+          {/* courses */}
           {courses.map((course) => (
             <div key={course.id} className="bg-white border border-gray-300 rounded-lg shadow-md overflow-hidden">
               <img

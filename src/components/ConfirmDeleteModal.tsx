@@ -14,7 +14,7 @@ const ConfirmDeleteModal: React.FC<ConfirmDeleteModalProps> = ({
   onConfirm,
   courseTitle
 }) => {
-  if (!isOpen) return null; // Don't render the modal if it's not open
+  if (!isOpen) return null; 
 
   return (
     <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center z-50">

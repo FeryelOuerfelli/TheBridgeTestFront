@@ -127,55 +127,57 @@ const AdminDashboard = () => {
     <div className="flex">
       <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
       <div className={`flex-1 p-6 transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-20'}`}>
-        <div className="flex justify-between items-center mb-4">
-        
-          <h2 className="text-2xl font-semibold">Manage Courses</h2>
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-3xl font-semibold text-gray-900">Manage Courses</h2>
           <div className="flex items-center space-x-4">
-            <button onClick={openAddCourseModal} className="bg-[#1C6F55] text-white py-2 px-4 rounded-md">
+            <button
+              onClick={openAddCourseModal}
+              className="bg-pink-600 hover:bg-pink-700 text-white py-2 px-6 rounded-lg transition duration-300 ease-in-out"
+            >
               <FontAwesomeIcon icon={faPlus} className="mr-2" /> Add Course
             </button>
           </div>
         </div>
 
-        <div className="mb-4">
+        <div className="mb-6">
           <input
             type="text"
             placeholder="Search courses..."
             value={searchTerm}
             onChange={handleSearch}
-            className="border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:ring focus:border-blue-300"
+            className="border border-gray-300 rounded-lg px-4 py-3 w-full focus:outline-none focus:ring-2 focus:ring-pink-500 transition duration-300"
           />
         </div>
 
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto bg-white shadow-lg rounded-lg border border-gray-200">
           <table className="w-full table-auto">
             <thead>
-              <tr className="bg-gray-200 text-left">
-                <th className="px-4 py-3">Title</th>
-                <th className="px-4 py-3">Price</th>
-                <th className="px-4 py-3">Image</th>
-                <th className="px-4 py-3">Actions</th>
+              <tr className="bg-yellow-100 text-left">
+                <th className="px-4 py-3 text-sm font-semibold text-gray-700">Title</th>
+                <th className="px-4 py-3 text-sm font-semibold text-gray-700">Price</th>
+                <th className="px-4 py-3 text-sm font-semibold text-gray-700">Image</th>
+                <th className="px-4 py-3 text-sm font-semibold text-gray-700">Actions</th>
               </tr>
             </thead>
             <tbody>
               {filteredCourses.map((course, index) => (
-                <tr key={index} className={index % 2 === 0 ? 'bg-gray-50' : ''}>
+                <tr key={index} className={`border-t ${index % 2 === 0 ? 'bg-gray-50' : ''} hover:bg-gray-100`}>
                   <td className="px-4 py-3">{course.title}</td>
-                  <td className="px-4 py-3">{course.price}</td>
+                  <td className="px-4 py-3">{course.price} DT/Month</td>
                   <td className="px-4 py-3">
-                    <img src={course.image} alt={course.title} className="w-20 h-20 object-cover" />
+                    <img src={course.image} alt={course.title} className="w-16 h-16 object-cover rounded-lg" />
                   </td>
                   <td className="px-4 py-3">
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-center space-x-3">
                       <button
                         onClick={() => openEditCourseModal(course)}
-                        className="text-yellow-600 hover:text-yellow-800"
+                        className="text-yellow-600 hover:text-yellow-800 transition duration-300"
                       >
                         <FontAwesomeIcon icon={faEdit} />
                       </button>
                       <button
                         onClick={() => openDeleteModal(course)}
-                        className="text-red-500"
+                        className="text-red-500 hover:text-red-700 transition duration-300"
                       >
                         <FontAwesomeIcon icon={faTrashAlt} />
                       </button>
@@ -198,9 +200,9 @@ const AdminDashboard = () => {
 
       {/* Add Course Modal */}
       <AddCourseModal
-        isOpen={showAddCourseModal}  // Ensure isOpen is set to the correct state
-        onCancel={closeAddCourseModal}  // Close the modal when clicking "Cancel"
-        onAdd={addCourse}  // Handle adding course
+        isOpen={showAddCourseModal} 
+        onCancel={closeAddCourseModal} 
+        onAdd={addCourse} 
       />
 
       {/* Edit Course Modal */}
