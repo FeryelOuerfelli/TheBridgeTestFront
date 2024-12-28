@@ -10,7 +10,7 @@ import EditCourseModal from '../components/EditCourseModal';
 const AdminDashboard = () => {
   const [courses, setCourses] = useState<any[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
   const [showModal, setShowModal] = useState(false); // Modal visibility for delete confirmation
   const [courseToDelete, setCourseToDelete] = useState(null); // Store course to delete
   const [showAddCourseModal, setShowAddCourseModal] = useState(false); // Modal visibility for adding course
@@ -18,9 +18,9 @@ const AdminDashboard = () => {
   const [courseToEdit, setCourseToEdit] = useState(null); // Store course to edit
 
   useEffect(() => {
-    fetch('http://localhost:3000/courses')
-      .then((response) => response.json())
-      .then((data) => setCourses(data));
+    axios.get('http://localhost:3000/courses').then((response) => {
+      setCourses(response.data);
+    });
   }, []);
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -76,17 +76,28 @@ const AdminDashboard = () => {
   };
 
  
- 
   const editCourse = async (course) => {
     try {
-      const response = await axios.put(`http://localhost:3000/courses/${course.id}`, course);  // Use course.id or course._id correctly here
-      setCourses(courses.map((c) => (c._id === course.id ? response.data : c))); // Update the course in the list
-      setShowEditCourseModal(false); // Close the modal after editing the course
+      const formData = new FormData();
+      formData.append('title', course.title);
+      formData.append('price', course.price.toString());
+  
+      if (course.image && typeof course.image !== 'string') {
+        formData.append('image', course.image);
+      } else if (typeof course.image === 'string') {
+        formData.append('image', course.image); // Pass the string directly
+      }
+  
+      const response = await axios.put(`http://localhost:3000/courses/${course.id}`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+  
+      setCourses(courses.map((c) => (c._id === course.id ? response.data : c)));
+      setShowEditCourseModal(false);
     } catch (error) {
       console.error('Error editing course:', error.response?.data || error.message);
     }
   };
-  
   
 
   const openEditCourseModal = (course) => {
@@ -110,35 +121,16 @@ const AdminDashboard = () => {
     course.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const exportToExcel = () => {
-    // Export logic for Excel
-  };
-
-  const exportToPDF = () => {
-    // Export logic for PDF
-  };
+  
 
   return (
     <div className="flex">
       <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-      <div
-        className={`flex-1 p-6 transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-20'}`}
-      >
+      <div className={`flex-1 p-6 transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-20'}`}>
         <div className="flex justify-between items-center mb-4">
-          <button
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="md:hidden p-2 bg-gray-700 text-white rounded-md"
-          >
-            &#9776; {/* Hamburger icon */}
-          </button>
+        
           <h2 className="text-2xl font-semibold">Manage Courses</h2>
           <div className="flex items-center space-x-4">
-            <button onClick={exportToExcel} className="bg-[#1C6F55] text-white py-2 px-4 rounded-md">
-              Export to Excel
-            </button>
-            <button onClick={exportToPDF} className="bg-[#bf2d2d] text-white py-2 px-4 rounded-md">
-              Export to PDF
-            </button>
             <button onClick={openAddCourseModal} className="bg-[#1C6F55] text-white py-2 px-4 rounded-md">
               <FontAwesomeIcon icon={faPlus} className="mr-2" /> Add Course
             </button>
@@ -177,7 +169,7 @@ const AdminDashboard = () => {
                     <div className="flex items-center space-x-2">
                       <button
                         onClick={() => openEditCourseModal(course)}
-                        className="text-blue-600 hover:text-blue-800"
+                        className="text-yellow-600 hover:text-yellow-800"
                       >
                         <FontAwesomeIcon icon={faEdit} />
                       </button>

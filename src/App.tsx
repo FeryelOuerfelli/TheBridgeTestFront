@@ -1,10 +1,10 @@
 import React from 'react';
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
 
-import AdminPage from './components/AdminPage'; 
 import Landing from './pages/landing'; 
 import './css/style.css';
 import Dashboard from './pages/Dashboard';
+import Contact from './pages/Contact';
 
 const App: React.FC = () => {
   return (
@@ -27,10 +27,10 @@ const App: React.FC = () => {
           }
         />
         <Route
-          path="/admin"
+          path="/contact"
           element={
             <>
-              <AdminPage />
+              <Contact />
             </>
           }
         />

@@ -13,68 +13,80 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
     <div
       className={`${
         sidebarOpen ? 'w-64' : 'w-20'
-      } fixed inset-0 bg-gray-800 bg-opacity-50 z-40 md:block md:h-screen transition-all duration-300`}
+      } fixed inset-0 z-40  bg-gradient-to-b from-pink-600 via-pink-700 to-pink-800 md:block md:h-screen transition-all duration-300`}
     >
       <div
-        className={`bg-white h-full shadow-lg transform transition-transform duration-300 ease-in-out ${
-          sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-        }`}
+        className={`h-full shadow-lg transform transition-transform duration-300 ease-in-out  bg-gradient-to-b from-pink-600 via-pink-700 to-pink-800`}
         style={{ width: sidebarOpen ? '16rem' : '5rem' }}
       >
-        <div className="flex justify-between items-center p-4 bg-gray-900 text-white">
+        {/* Logo Section */}
+        <div className="flex items-center justify-center p-4">
           {sidebarOpen ? (
-            <h2 className="text-lg font-semibold">Admin Dashboard</h2>
+            <img
+              src="/src/images/LogoBridge.png" // Replace with the actual logo path
+              alt="Logo"
+              className="w-80 h-20 object-contain"
+            />
           ) : (
-            <span className="text-2xl">☰</span> // Hamburger icon
+            <img
+              src="/src/images/LogoBridgemini.png" // Replace with a smaller icon/logo version
+              alt="Mini Logo"
+              className="w-10 h-10 object-contain"
+            />
           )}
-          <button
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="text-white md:hidden"
-          >
-            &times;
-          </button>
         </div>
 
+        {/* Navigation Links */}
         <nav className="mt-4">
           <ul>
             <li>
               <Link
-                to="/"
-                className="flex items-center px-4 py-3 hover:bg-gray-200 text-gray-700"
+                to="/dashboard"
+                className="flex items-center px-4 py-3 hover:bg-pink-700 text-white"
               >
                 <FontAwesomeIcon icon={faHome} className="mr-2" />
-                {sidebarOpen && 'Dashboard'}
+                {sidebarOpen && <span>Dashboard</span>}
               </Link>
             </li>
             <li>
               <Link
-                to="/courses"
-                className="flex items-center px-4 py-3 hover:bg-gray-200 text-gray-700"
+                to="/dashboard"
+                className="flex items-center px-4 py-3 hover:bg-pink-700 text-white"
               >
                 <FontAwesomeIcon icon={faList} className="mr-2" />
-                {sidebarOpen && 'Manage Courses'}
+                {sidebarOpen && <span>Manage Courses</span>}
               </Link>
             </li>
             <li>
               <Link
-                to="/add-course"
-                className="flex items-center px-4 py-3 hover:bg-gray-200 text-gray-700"
+                to="/landing"
+                className="flex items-center px-4 py-3 hover:bg-pink-700 text-white"
               >
                 <FontAwesomeIcon icon={faPlus} className="mr-2" />
-                {sidebarOpen && 'Add Course'}
+                {sidebarOpen && <span>Landing</span>}
               </Link>
             </li>
             <li>
               <Link
-                to="/settings"
-                className="flex items-center px-4 py-3 hover:bg-gray-200 text-gray-700"
+                to="/contact"
+                className="flex items-center px-4 py-3 hover:bg-pink-700 text-white"
               >
                 <FontAwesomeIcon icon={faCog} className="mr-2" />
-                {sidebarOpen && 'Settings'}
+                {sidebarOpen && <span>Contact</span>}
               </Link>
             </li>
           </ul>
         </nav>
+
+        {/* Toggle Button */}
+        <div className="absolute bottom-4 left-0 right-0 text-center">
+          <button
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+            className="p-2 bg-pink-700 text-white rounded-md"
+          >
+            {sidebarOpen ? 'Hide' : '☰'}
+          </button>
+        </div>
       </div>
     </div>
   );

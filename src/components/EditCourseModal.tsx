@@ -33,9 +33,23 @@ const EditCourseModal: React.FC<EditCourseModalProps> = ({
       alert('Please provide valid title and price.');
       return;
     }
-    onEdit({ id: courseToEdit._id, title, price, image }); // Use _id instead of id
+  
+    const updatedCourse = { id: courseToEdit._id, title, price , image };
+  
+    if (image) {
+      if (typeof image === 'string') {
+        // Keep the existing image URL
+        updatedCourse.image = image;
+      } else {
+        // Add the new file to update
+        updatedCourse.image = image;
+      }
+    }
+  
+    onEdit(updatedCourse);
     onClose();
   };
+  
   
   return (
     <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center z-50">

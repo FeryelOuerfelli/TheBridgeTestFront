@@ -1,6 +1,19 @@
 import React from 'react';
 
-const ConfirmDeleteModal = ({ isOpen, onCancel, onConfirm, courseTitle }) => {
+// Define the types for the props
+interface ConfirmDeleteModalProps {
+  isOpen: boolean;
+  onCancel: () => void;
+  onConfirm: () => void;
+  courseTitle: string;
+}
+
+const ConfirmDeleteModal: React.FC<ConfirmDeleteModalProps> = ({
+  isOpen,
+  onCancel,
+  onConfirm,
+  courseTitle
+}) => {
   if (!isOpen) return null; // Don't render the modal if it's not open
 
   return (
